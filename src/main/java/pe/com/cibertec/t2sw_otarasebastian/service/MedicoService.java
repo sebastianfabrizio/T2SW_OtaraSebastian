@@ -3,6 +3,7 @@ package pe.com.cibertec.t2sw_otarasebastian.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pe.com.cibertec.t2sw_otarasebastian.dto.MedicoDto;
+import pe.com.cibertec.t2sw_otarasebastian.exception.ResourceNotFoundException;
 import pe.com.cibertec.t2sw_otarasebastian.model.Medico;
 import pe.com.cibertec.t2sw_otarasebastian.repository.MedicoRepository;
 
@@ -45,13 +46,21 @@ public class MedicoService implements IMedicoService{
 
     @Override
     public MedicoDto save(MedicoDto medicoDto) {
+        Medico medico;
+        if (medicoDto.getIdmedico() != null && medicoRepository.existsById(medicoDto.getIdmedico())) {
+            medico = medicoRepository.findById(medicoDto.getIdmedico()).orElseThrow(() ->
+                    new ResourceNotFoundException("El médico con el identificador número " + medicoDto.getIdmedico() + " no existe"));
+            medico.setNommedico(medicoDto.getNommedico());
+            medico.setApemedico(medicoDto.getApemedico());
+            medico.setFechnacmedico(medicoDto.getFechnacmedico());
+        } else {
+            medico = new Medico();
+            medico.setNommedico(medicoDto.getNommedico());
+            medico.setApemedico(medicoDto.getApemedico());
+            medico.setFechnacmedico(medicoDto.getFechnacmedico());
+        }
 
-        Medico medico = new Medico();
-        medico.setNommedico(medicoDto.getNommedico());
-        medico.setApemedico(medicoDto.getApemedico());
-        medico.setFechnacmedico(medicoDto.getFechnacmedico());
         Medico savedMedico = medicoRepository.save(medico);
-
         return MedicoDto.builder()
                 .idmedico(savedMedico.getIdmedico())
                 .nommedico(savedMedico.getNommedico())
@@ -59,5 +68,6 @@ public class MedicoService implements IMedicoService{
                 .fechnacmedico(savedMedico.getFechnacmedico())
                 .build();
     }
+
 
 }

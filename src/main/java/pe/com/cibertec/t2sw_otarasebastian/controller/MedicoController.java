@@ -41,5 +41,10 @@ public class MedicoController {
         return new ResponseEntity<>(medicoService.save(medicoDto), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<MedicoDto> ActualizarMedico(@PathVariable int id, @RequestBody MedicoDto medicoDto){
+
+    }
+
 
 }
