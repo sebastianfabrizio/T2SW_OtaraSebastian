@@ -34,5 +34,10 @@ public class FileController {
         }
 
 
+    @PostMapping("/imagenes")
+    public ResponseEntity<String> subirArchivos(@RequestParam("files") List<MultipartFile> files) {
+
+    }
+
 
     }
