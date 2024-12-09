@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pe.com.cibertec.t2sw_otarasebastian.dto.MedicoDto;
+import pe.com.cibertec.t2sw_otarasebastian.exception.ResourceNotFoundException;
 import pe.com.cibertec.t2sw_otarasebastian.model.Medico;
 import pe.com.cibertec.t2sw_otarasebastian.service.IMedicoService;
 
@@ -33,8 +34,9 @@ public class MedicoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<MedicoDto> ObtenerIdMedico(@PathVariable Integer id) {
-
-
+        MedicoDto valorId = medicoService.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("El médico con el identificador número " + id + " no existe"));
+        return new ResponseEntity<>(valorId, HttpStatus.OK);
     }
 
 
