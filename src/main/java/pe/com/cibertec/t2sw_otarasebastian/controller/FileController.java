@@ -21,15 +21,22 @@ public class FileController {
 
         @PostMapping("/imagen")
         public ResponseEntity<String> subirArchivo(@RequestParam("file") MultipartFile file) {
-        
+            try {
+                if (file.isEmpty()) {
+                    return new ResponseEntity<>("El archivo está vacío.", HttpStatus.BAD_REQUEST);
+                }
+
+                fileService.guardarArchivo(file);
+                return new ResponseEntity<>("Se subió un archivo.", HttpStatus.OK);
+            } catch (Exception ex) {
+                return new ResponseEntity<>("Error en servidor: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
         }
     
 
 
-    @PostMapping("/imagenes")
-    public ResponseEntity<String> subirArchivos(@RequestParam("files") List<MultipartFile> files) {
 
-    }
 
 
     }
