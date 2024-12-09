@@ -32,9 +32,16 @@ public class MedicoService implements IMedicoService{
     }
 
     @Override
-    public Optional<Medico> findById(int id) {
-        return medicoRepository.findById(id);
+    public Optional<MedicoDto> findById(int id) {
+        Optional<Medico> medico = medicoRepository.findById(id);
+        return medico.map(m -> MedicoDto.builder()
+                .idmedico(m.getIdmedico())
+                .nommedico(m.getNommedico())
+                .apemedico(m.getApemedico())
+                .fechnacmedico(m.getFechnacmedico())
+                .build());
     }
+
 
     @Override
     public Medico save(Medico medico) {

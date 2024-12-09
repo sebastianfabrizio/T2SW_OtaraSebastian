@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface IMedicoService {
     List<MedicoDto> getMedicos();
-    Optional<Medico> findById(int id);
+    Optional<MedicoDto> findById(int id);
     Medico save(Medico medico);
 }
