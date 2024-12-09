@@ -38,6 +38,7 @@ public class MedicoController {
 
     @PostMapping
     public ResponseEntity<MedicoDto> GuardarMedico(@RequestBody MedicoDto medicoDto){
+        return new ResponseEntity<>(medicoService.save(medicoDto), HttpStatus.CREATED);
     }
 
 
