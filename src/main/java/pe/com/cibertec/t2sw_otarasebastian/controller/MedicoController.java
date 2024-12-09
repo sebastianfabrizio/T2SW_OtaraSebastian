@@ -43,7 +43,10 @@ public class MedicoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<MedicoDto> ActualizarMedico(@PathVariable int id, @RequestBody MedicoDto medicoDto){
-
+        medicoService.findById(id)
+                .orElseThrow(()->new ResourceNotFoundException("El médico con el identificador número " + id + " no existe"));
+        medicoDto.setIdmedico(id);
+        return new ResponseEntity<>(medicoService.save(medicoDto), HttpStatus.OK);
     }
 
 
