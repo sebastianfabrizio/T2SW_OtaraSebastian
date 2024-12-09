@@ -38,4 +38,9 @@ public class EspecialidadController {
         return new ResponseEntity<>(especialidadService.save(especialidadDto), HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<EspecialidadDto> ActualizarEspecialidad(@PathVariable int id, @RequestBody EspecialidadDto especialidadDto){
+
+    }
+
 }
