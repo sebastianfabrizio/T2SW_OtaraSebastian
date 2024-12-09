@@ -36,7 +36,22 @@ public class FileController {
 
     @PostMapping("/imagenes")
     public ResponseEntity<String> subirArchivos(@RequestParam("files") List<MultipartFile> files) {
+        try {
+            if (files == null || files.isEmpty()) {
+                return new ResponseEntity<>("No se enviaron archivos.", HttpStatus.BAD_REQUEST);
+            }
 
+            for (MultipartFile file : files) {
+                if (file.isEmpty()) {
+                    return new ResponseEntity<>("Uno o más archivos están vacíos.", HttpStatus.BAD_REQUEST);
+                }
+            }
+
+            fileService.guardarArchivos(files);
+            return new ResponseEntity<>("Se subieron " + files.size() + " archivos.", HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>("Error en servidor: " + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     
