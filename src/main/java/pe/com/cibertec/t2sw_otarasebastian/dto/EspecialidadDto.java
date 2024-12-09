@@ -13,5 +13,6 @@ public class EspecialidadDto {
     private String titulo;
     private String funcion;
     private LocalDateTime fechgraduacion;
+    private Integer idmedico;
 
 }

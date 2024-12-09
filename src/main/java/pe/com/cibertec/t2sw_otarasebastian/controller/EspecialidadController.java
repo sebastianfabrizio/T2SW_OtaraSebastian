@@ -35,7 +35,7 @@ public class EspecialidadController {
 
     @PostMapping
     public ResponseEntity<EspecialidadDto> GuardarEspecialidad(@RequestBody EspecialidadDto especialidadDto){
-
+        return new ResponseEntity<>(especialidadService.save(especialidadDto), HttpStatus.CREATED);
     }
 
 }
