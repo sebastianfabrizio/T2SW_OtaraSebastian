@@ -2,6 +2,7 @@ package pe.com.cibertec.t2sw_otarasebastian.model;
 
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 

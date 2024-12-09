@@ -44,7 +44,20 @@ public class MedicoService implements IMedicoService{
 
 
     @Override
-    public Medico save(Medico medico) {
-        return medicoRepository.save(medico);
+    public MedicoDto save(MedicoDto medicoDto) {
+
+        Medico medico = new Medico();
+        medico.setNommedico(medicoDto.getNommedico());
+        medico.setApemedico(medicoDto.getApemedico());
+        medico.setFechnacmedico(medicoDto.getFechnacmedico());
+        Medico savedMedico = medicoRepository.save(medico);
+
+        return MedicoDto.builder()
+                .idmedico(savedMedico.getIdmedico())
+                .nommedico(savedMedico.getNommedico())
+                .apemedico(savedMedico.getApemedico())
+                .fechnacmedico(savedMedico.getFechnacmedico())
+                .build();
     }
+
 }
