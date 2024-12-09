@@ -40,7 +40,10 @@ public class EspecialidadController {
 
     @PutMapping("/{id}")
     public ResponseEntity<EspecialidadDto> ActualizarEspecialidad(@PathVariable int id, @RequestBody EspecialidadDto especialidadDto){
-
+        especialidadService.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("La especialidad con el identificador número " + id + " no existe"));
+        especialidadDto.setIdmedico(id);
+        return new ResponseEntity<>(especialidadService.save(especialidadDto), HttpStatus.OK);
     }
 
 }
